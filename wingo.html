@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion AI</title>
+    <style>
+        /* Full screen black background */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            position: relative;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .black-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 5px solid red;
+            box-shadow: 0 0 15px red;
+            animation: borderGlow 5s infinite;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                border-color: red;
+                box-shadow: 0 0 15px red;
+            }
+            33% {
+                border-color: rgb(0, 255, 0);
+                box-shadow: 0 0 15px rgb(0, 255, 0);
+            }
+            66% {
+                border-color: orange;
+                box-shadow: 0 0 15px orange;
+            }
+            100% {
+                border-color: red;
+                box-shadow: 0 0 15px red;
+            }
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 5px solid rgb(0, 255, 0);
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: background-color 0.3s ease-in-out, transform 0.3s;
+        }
+
+        .buttons button:hover {
+            transform: scale(1.1);
+        }
+
+        .predict-button {
+            background-color: rgb(0, 255, 0);
+        }
+
+        .telegram-button {
+            background-color: rgb(255, 0, 0);
+        }
+
+        .period-result {
+            color: white;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        #auto-period {
+            color: rgb(255, 0, 0);
+        }
+
+        #result {
+            color: rgb(72, 255, 0);
+        }
+
+        /* Particle Container */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: rgb(0, 255, 0);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles.js container -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="black-box">
+            <!-- Replacing logo image with title -->
+            <h1>FUSION AI</h1>
+            <div class="period-result">
+                <span id="auto-period"><strong>API:</strong> </span>
+                <br>
+                <span id="result"><strong>RESULT:</strong> </span>
+            </div>
+            <div class="buttons">
+                <button class="telegram-button" onclick="window.location.href='https://t.me/HACKERSHUBOFFLINE';">TELEGRAM</button>
+                <button class="predict-button" id="predict-button">PREDICT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 4,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let lastPeriod = '';
+            document.querySelector('.predict-button').addEventListener('click', function () {
+                const now = new Date();
+                const totalMinutes = now.getHours() * 60 + now.getMinutes() + 1;
+                const formattedMinutes = String(totalMinutes).padStart(4, '0');
+                const currentDate = now.toISOString().split('T')[0].replace(/-/g, '');
+                const autoPeriod = currentDate + '01' + formattedMinutes;
+
+                if (autoPeriod === lastPeriod) {
+                    alert('Wait for next period');
+                    return;
+                }
+
+                lastPeriod = autoPeriod;
+                document.getElementById('auto-period').textContent = `API: ${autoPeriod}`;
+
+                const result = Math.random() < 0.5 ? 'SMALL' : 'BIG';
+                document.getElementById('result').textContent = `RESULT: ${result}`;
+            });
+        });
+    </script>
+</body>
+</html>
